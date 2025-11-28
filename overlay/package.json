@@ -1,0 +1,44 @@
+{
+  "name": "lanoel-overlay",
+  "version": "1.0.0",
+  "description": "Overlay de classement Lanoel 2025",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-win": "set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win",
+    "build-mac": "electron-builder --mac",
+    "build-linux": "electron-builder --linux"
+  },
+  "build": {
+    "appId": "ch.lanoel.overlay",
+    "productName": "Lanoel Overlay",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.png",
+      "sign": null,
+      "verifyUpdateCodeSignature": false
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    }
+  },
+  "keywords": [
+    "overlay",
+    "gaming",
+    "leaderboard"
+  ],
+  "author": "Lanoel Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}

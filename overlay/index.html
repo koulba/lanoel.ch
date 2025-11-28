@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lanoel Overlay</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="overlay-container">
+        <!-- Header avec contrôles -->
+        <div class="header">
+            <div class="title">🎄 Lanoel 2025</div>
+            <div class="controls">
+                <button id="lockBtn" class="control-btn" title="Verrouiller (Ctrl+L)">🔓</button>
+                <button id="refreshBtn" class="control-btn" title="Actualiser">🔄</button>
+                <button id="settingsBtn" class="control-btn" title="Paramètres">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Panneau de paramètres (caché par défaut) -->
+        <div id="settingsPanel" class="settings-panel hidden">
+            <div class="settings-content">
+                <h3>Paramètres</h3>
+                <div class="setting-item">
+                    <label for="apiUrl">URL de l'API:</label>
+                    <input type="text" id="apiUrl" value="https://lanoel.ch/api/leaderboard.php">
+                </div>
+                <div class="setting-item">
+                    <label for="refreshInterval">Actualisation (secondes):</label>
+                    <input type="number" id="refreshInterval" value="30" min="5" max="300">
+                </div>
+                <div class="setting-item">
+                    <label for="opacity">Opacité:</label>
+                    <input type="range" id="opacity" min="50" max="100" value="95">
+                    <span id="opacityValue">95%</span>
+                </div>
+                <button id="saveSettings" class="btn-save">Enregistrer</button>
+            </div>
+        </div>
+
+        <!-- Indicateur de statut -->
+        <div class="status-bar">
+            <span id="statusText">Connexion...</span>
+            <span id="lastUpdate"></span>
+        </div>
+
+        <!-- Liste du classement -->
+        <div id="leaderboard" class="leaderboard">
+            <div class="loading">Chargement...</div>
+        </div>
+
+        <!-- Footer avec aide -->
+        <div class="footer">
+            <div class="shortcuts">
+                <small>Ctrl+L: Verrouiller | Ctrl+H: Masquer</small>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
