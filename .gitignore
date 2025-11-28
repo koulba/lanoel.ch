@@ -1,0 +1,12 @@
+# Fichiers d'environnement (contient des informations sensibles)
+.env
+
+# Fichiers de cache et temporaires
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Dossiers de dépendances
+vendor/
+node_modules/
