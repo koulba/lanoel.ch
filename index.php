@@ -159,8 +159,9 @@ updateCountdown();
 #timer {
     color: red;
 }
+
 </style>
-    
+    <!-- Update -->
     <h2 class="section-title" style="margin-top: 60px;">
         <?php if ($votingClosed): ?>
             🏆 Classement Final - Top 8 Jeux
