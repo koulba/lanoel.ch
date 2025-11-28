@@ -11,7 +11,7 @@ include 'includes/header.php';
 
 <div class="container">
     <div class="download-hero">
-        <h1 class="download-title">Overlay ⬇️</h1>
+        <h1 class="download-title">Overlay du classement</h1>
         <p class="download-subtitle">Suivez le classement en temps réel pendant que vous jouez</p>
     </div>
 
@@ -177,7 +177,7 @@ include 'includes/header.php';
 .download-hero {
     text-align: center;
     padding: 60px 20px 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--dark-gray);
     border-radius: 20px;
     color: white;
     margin-bottom: 50px;
@@ -314,7 +314,7 @@ include 'includes/header.php';
 .step-number {
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--black);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -331,11 +331,11 @@ include 'includes/header.php';
 }
 
 code {
-    background: rgba(102, 126, 234, 0.1);
+    background: var(--light-gray);
     padding: 3px 8px;
     border-radius: 5px;
     font-family: monospace;
-    color: #667eea;
+    color: var(--black);
 }
 
 .usage-grid {
@@ -372,7 +372,7 @@ code {
     content: "▸";
     position: absolute;
     left: 0;
-    color: #667eea;
+    color: var(--black);
     font-weight: bold;
 }
 
@@ -414,7 +414,7 @@ kbd {
 .faq-item h3 {
     font-size: 1.1rem;
     margin-bottom: 10px;
-    color: #667eea;
+    color: var(--dark-gray);
 }
 
 .back-section {
