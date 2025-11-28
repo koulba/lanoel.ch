@@ -118,7 +118,7 @@ include 'includes/header.php';
         <!-- Compte à rebours jusqu'au 27/11/2025 -->
 <div id="countdown" style="text-align:center; margin:40px 0; font-size:2rem; font-weight:bold;">
     <?php if ($votingClosed): ?>
-        <div style="color: #e74c3c;">⏰ Les votes sont terminés !</div>
+        <div style="color: #e74c3c;">Les votes sont terminés !</div>
         <div style="font-size: 1.2rem; margin-top: 10px; color: #666;">
             Découvrez ci-dessous le classement final des 8 jeux les plus votés
         </div>
