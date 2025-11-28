@@ -170,7 +170,7 @@ updateCountdown();
     </h2>
     <p class="section-subtitle">
         <?php if ($votingClosed): ?>
-            Les <?= count($topGames) ?> jeux sélectionnés pour le tournoi 🎮
+            Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2025
             <?php if (count($topGames) > 8): ?>
                 <br><span style="color: #e74c3c; font-weight: bold;">⚠️ <?= count($topGames) ?> jeux à égalité pour la 8ème place !</span>
             <?php endif; ?>
