@@ -14,10 +14,16 @@ if (file_exists($envFile)) {
 }
 
 // Configuration de la base de données
-$host = getenv('DB_HOST') ?: 'localhost';
-$dbname = getenv('DB_NAME');
-$username = getenv('DB_USER');
-$password = getenv('DB_PASSWORD');
+// Vérifier d'abord les variables d'environnement, sinon utiliser $_ENV
+$host = getenv('DB_HOST') ?: ($_ENV['DB_HOST'] ?? null);
+$dbname = getenv('DB_NAME') ?: ($_ENV['DB_NAME'] ?? null);
+$username = getenv('DB_USER') ?: ($_ENV['DB_USER'] ?? null);
+$password = getenv('DB_PASSWORD') ?: ($_ENV['DB_PASSWORD'] ?? null);
+
+// Si les variables ne sont pas définies, afficher un message d'erreur détaillé
+if (!$host || !$dbname || !$username || !$password) {
+    die("Erreur : Les variables d'environnement de la base de données ne sont pas définies. Vérifiez que le fichier .env existe à : " . realpath(__DIR__ . '/..'));
+}
 
 try {
     // Forcer la connexion TCP/IP avec le port 3306 pour éviter l'erreur "No such file or directory"
