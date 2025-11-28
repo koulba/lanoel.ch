@@ -20,8 +20,11 @@ $username = getenv('DB_USER');
 $password = getenv('DB_PASSWORD');
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Forcer la connexion TCP/IP avec le port 3306 pour éviter l'erreur "No such file or directory"
+    $pdo = new PDO("mysql:host=$host;port=3306;dbname=$dbname;charset=utf8mb4", $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+    ]);
 } catch(PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
 }
