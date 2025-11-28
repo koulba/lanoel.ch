@@ -66,7 +66,7 @@ include 'includes/header.php';
 </div>
 
 <div class="container">
-    <h2 class="section-title">🏆 Classement Général</h2>
+    <h2 class="section-title">Classement Général</h2>
     <p class="section-subtitle">Les meilleures équipes du tournoi</p>
     
     <?php if (empty($teams)): ?>
@@ -89,7 +89,7 @@ include 'includes/header.php';
             <div class="team-name"><?= htmlspecialchars($team['name']) ?></div>
             <div class="team-points"><?= $team['points'] ?> pts</div>
             
-            <!-- ✅ NOMS CLIQUABLES -->
+            <!-- NOMS CLIQUABLES -->
             <div class="team-players">
                 <?php if ($team['player1_name'] && $team['player2_name']): ?>
                     👥 
@@ -173,7 +173,7 @@ updateCountdown();
         <?php if ($votingClosed): ?>
             Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2025
             <?php if (count($topGames) > 8): ?>
-                <br><span style="color: #e74c3c; font-weight: bold;">⚠️ <?= count($topGames) ?> jeux à égalité pour la 8ème place !</span>
+                <br><span style="color: #e74c3c; font-weight: bold;">⚠️ <?= count($topGames) ?> Jeux séléctionés pour 8 places !</span>
             <?php endif; ?>
         <?php else: ?>
             Les jeux préférés de la communauté des lutins 🎅🏻<br>En cas d'égalité entre 1 ou plusieurs jeux, ils seront tirés au sort en même temps que les équipes
@@ -217,7 +217,7 @@ updateCountdown();
         </div>
     <?php endif; ?>
     <!-- SECTION LISTE DES PARTICIPANTS -->
-    <h2 class="section-title" style="margin-top: 60px;">👥 Participants au tournoi</h2>
+    <h2 class="section-title" style="margin-top: 60px;">Participants au tournoi</h2>
     <p class="section-subtitle">Découvrez tous les lutins inscrits</p>
 
      <?php
