@@ -164,7 +164,7 @@ updateCountdown();
     <!-- Update -->
     <h2 class="section-title" style="margin-top: 60px;">
         <?php if ($votingClosed): ?>
-            🏆 Classement Final - Top 8 Jeux
+            Top 8  des jeux votés
         <?php else: ?>
             Jeux les plus votés
         <?php endif; ?>
