@@ -164,7 +164,7 @@ updateCountdown();
     <!-- Update -->
     <h2 class="section-title" style="margin-top: 60px;">
         <?php if ($votingClosed): ?>
-            🏆 Classement Final - Top git add .8 Jeux
+            🏆 Classement Final - Top 8 Jeux
         <?php else: ?>
             Jeux les plus votés
         <?php endif; ?>
