@@ -79,6 +79,7 @@
                         <!-- Menu Utilisateur -->
                         <a href="<?= $base_path ?>index.php">Accueil</a>
                         <a href="<?= $base_path ?>vote.php">Voter</a>
+                        <a href="<?= $base_path ?>overlay_download.php" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-weight: 600;">📥 Overlay</a>
                     <?php endif; ?>
                     
                     <!-- Profil avec Avatar -->
