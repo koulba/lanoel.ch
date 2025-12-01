@@ -84,55 +84,6 @@ include 'includes/header.php';
 </div>
 
 <div class="container">
-    <h2 class="section-title">Classement Général</h2>
-    <p class="section-subtitle">Les meilleures équipes du tournoi</p>
-    
-    <?php if (empty($teams)): ?>
-        <div class="alert alert-info">Aucune équipe n'a encore été créée.</div>
-    <?php else: ?>
-       <div class="teams-grid">
-    <?php foreach ($teams as $index => $team): ?>
-        <div class="team-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 2rem; opacity: 0.3;">#<?= $index + 1 ?></span>
-                <?php if ($index === 0): ?>
-                    <span style="font-size: 2rem;">🥇</span>
-                <?php elseif ($index === 1): ?>
-                    <span style="font-size: 2rem;">🥈</span>
-                <?php elseif ($index === 2): ?>
-                    <span style="font-size: 2rem;">🥉</span>
-                <?php endif; ?>
-            </div>
-
-            <div class="team-name"><?= htmlspecialchars($team['name']) ?></div>
-            <div class="team-points"><?= $team['points'] ?> pts</div>
-            
-            <!-- NOMS CLIQUABLES -->
-            <div class="team-players">
-                <?php if ($team['player1_name'] && $team['player2_name']): ?>
-                    👥 
-                    <a href="profile/view.php?id=<?= $team['player1_id'] ?>" 
-                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
-                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
-                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
-                        <?= htmlspecialchars($team['player1_name']) ?>
-                    </a>
-                    & 
-                    <a href="profile/view.php?id=<?= $team['player2_id'] ?>" 
-                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
-                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
-                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
-                        <?= htmlspecialchars($team['player2_name']) ?>
-                    </a>
-                <?php else: ?>
-                    ⚠️ Équipe incomplète
-                <?php endif; ?>
-            </div>
-        </div>
-    <?php endforeach; ?>
-</div>
-    <?php endif; ?>
-
         <!-- Compte à rebours jusqu'au 27.12.2025 -->
 <div id="countdown-container" style="text-align:center; margin:50px 0;">
     <div style="background: #000; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 800px; margin: 0 auto; border: 2px solid #333;">
@@ -146,7 +97,7 @@ include 'includes/header.php';
         <?php endif; ?>
 
         <div style="color: #fff; font-size: 1.8rem; margin-bottom: 15px;">
-            🎮 La Lanoel 2025 🎮
+            LANoël 2025
         </div>
         <div style="color: #f0f0f0; font-size: 1.2rem; margin-bottom: 25px;">
             📅 Du 27 au 28 décembre 2025
@@ -255,6 +206,56 @@ updateLanoelCountdown();
     }
 }
 </style>
+
+    <h2 class="section-title" style="margin-top: 60px;">Classement Général</h2>
+    <p class="section-subtitle">Les meilleures équipes du tournoi</p>
+
+    <?php if (empty($teams)): ?>
+        <div class="alert alert-info">Aucune équipe n'a encore été créée.</div>
+    <?php else: ?>
+       <div class="teams-grid">
+    <?php foreach ($teams as $index => $team): ?>
+        <div class="team-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 2rem; opacity: 0.3;">#<?= $index + 1 ?></span>
+                <?php if ($index === 0): ?>
+                    <span style="font-size: 2rem;">🥇</span>
+                <?php elseif ($index === 1): ?>
+                    <span style="font-size: 2rem;">🥈</span>
+                <?php elseif ($index === 2): ?>
+                    <span style="font-size: 2rem;">🥉</span>
+                <?php endif; ?>
+            </div>
+
+            <div class="team-name"><?= htmlspecialchars($team['name']) ?></div>
+            <div class="team-points"><?= $team['points'] ?> pts</div>
+
+            <!-- NOMS CLIQUABLES -->
+            <div class="team-players">
+                <?php if ($team['player1_name'] && $team['player2_name']): ?>
+                    👥
+                    <a href="profile/view.php?id=<?= $team['player1_id'] ?>"
+                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
+                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
+                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
+                        <?= htmlspecialchars($team['player1_name']) ?>
+                    </a>
+                    &
+                    <a href="profile/view.php?id=<?= $team['player2_id'] ?>"
+                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
+                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
+                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
+                        <?= htmlspecialchars($team['player2_name']) ?>
+                    </a>
+                <?php else: ?>
+                    ⚠️ Équipe incomplète
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+    <?php endif; ?>
+
     <!-- Update -->
     <h2 class="section-title" style="margin-top: 60px;">
         <?php if ($votingClosed): ?>
