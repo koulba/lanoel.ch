@@ -135,7 +135,7 @@ include 'includes/header.php';
 
         <!-- Compte à rebours jusqu'au 27.12.2025 -->
 <div id="countdown-container" style="text-align:center; margin:50px 0;">
-    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 800px; margin: 0 auto;">
+    <div style="background: #000; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 800px; margin: 0 auto; border: 2px solid #333;">
         <?php if ($votingClosed): ?>
             <div style="color: #fff; font-size: 2.5rem; font-weight: bold; margin-bottom: 20px;">
                 🎄 Les votes sont terminés ! 🎄
