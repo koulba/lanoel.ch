@@ -41,25 +41,22 @@ if ($votingClosed && !empty($allGames)) {
             $topGames[] = $game;
             $minVotes = $game['vote_count'];
         }
-        // Ajouter les jeux à égalité avec le 8ème, SAUF si Mario Kart est déjà dans le top 8
+        // Gérer les jeux à égalité avec le 8ème
         elseif ($game['vote_count'] == $minVotes) {
-            // Vérifier si Mario Kart est déjà dans le top 8
-            $marioKartInTop8 = false;
+            // Vérifier si Mario Kart est parmi les jeux ayant exactement $minVotes votes
+            $marioKartAtMinVotes = false;
             foreach ($topGames as $topGame) {
-                if (stripos($topGame['name'], 'Mario Kart') !== false) {
-                    $marioKartInTop8 = true;
+                if ($topGame['vote_count'] == $minVotes && stripos($topGame['name'], 'Mario Kart') !== false) {
+                    $marioKartAtMinVotes = true;
                     break;
                 }
             }
 
-            // Si Mario Kart est dans le top 8, on garde uniquement Mario Kart parmi les égalités
-            if ($marioKartInTop8) {
-                if (stripos($game['name'], 'Mario Kart') !== false) {
-                    $topGames[] = $game;
-                }
-                // Sinon on ignore les autres jeux à égalité
+            // Si Mario Kart a exactement $minVotes votes (donc c'est le 8ème), on ignore les autres jeux à égalité
+            if ($marioKartAtMinVotes) {
+                // Ne rien ajouter - on garde uniquement Mario Kart qui est déjà dans le top 8
             } else {
-                // Si Mario Kart n'est pas encore dans le top 8, on garde tous les jeux à égalité
+                // Si Mario Kart n'est pas à ce niveau de votes, on garde tous les jeux à égalité
                 $topGames[] = $game;
             }
         }
