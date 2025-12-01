@@ -44,117 +44,115 @@ $pageTitle = "Profil de " . htmlspecialchars($user['username']);
 include '../includes/header.php';
 ?>
 
-<div class="container" style="max-width: 900px; margin-top: 40px;">
+<div class="container profile-view-container">
 
     <!-- Header du profil -->
-    <div style="background-color: var(--dark-gray); border-radius: 18px; padding: 50px 40px; text-align: center; color: var(--white); margin-bottom: 30px;">
+    <div class="profile-view-header">
 
         <!-- Avatar -->
-        <div style="margin-bottom: 25px;">
-            <?php 
-            $avatar_url = !empty($user['avatar']) 
+        <div class="profile-view-avatar-wrapper">
+            <?php
+            $avatar_url = !empty($user['avatar'])
                 ? '../uploads/avatars/' . htmlspecialchars($user['avatar'])
                 : 'https://ui-avatars.com/api/?name=' . urlencode($user['username']) . '&size=200&background=1d1d1f&color=fff&bold=true';
             ?>
-            <img src="<?= $avatar_url ?>" 
-                 alt="Avatar de <?= htmlspecialchars($user['username']) ?>" 
-                 style="width: 140px; height: 140px; border-radius: 50%; border: 3px solid var(--white); object-fit: cover;">
+            <img src="<?= $avatar_url ?>"
+                 alt="Avatar de <?= htmlspecialchars($user['username']) ?>"
+                 class="profile-view-avatar">
         </div>
 
         <!-- Nom d'utilisateur -->
-        <h1 style="font-size: 2.2rem; margin: 15px 0 10px 0; font-weight: 600; letter-spacing: -1px;">
+        <h1 class="profile-view-username">
             <?= htmlspecialchars($user['username']) ?>
             <?php if ($user['is_admin']): ?>
-                <span style="background-color: var(--white); color: var(--black); padding: 4px 12px; border-radius: 12px; font-size: 0.8rem; margin-left: 10px; font-weight: 600;">Admin</span>
+                <span class="profile-view-admin-badge">Admin</span>
             <?php endif; ?>
         </h1>
 
         <!-- Équipe -->
         <?php if ($user['team_name']): ?>
-            <div style="font-size: 1.1rem; color: var(--light-gray); margin-top: 15px;">
-                Équipe : <strong style="color: var(--white);"><?= htmlspecialchars($user['team_name']) ?></strong> 
-                <span style="color: var(--gray);">(<?= $user['team_points'] ?> points)</span>
+            <div class="profile-view-team">
+                Équipe : <strong class="profile-view-team-name"><?= htmlspecialchars($user['team_name']) ?></strong>
+                <span class="profile-view-team-points">(<?= $user['team_points'] ?> points)</span>
             </div>
         <?php else: ?>
-            <div style="font-size: 1rem; color: var(--gray); margin-top: 15px;">
+            <div class="profile-view-no-team">
                 Pas encore d'équipe
             </div>
         <?php endif; ?>
 
         <!-- Bouton d'édition si c'est son propre profil -->
         <?php if ($is_own_profile): ?>
-            <a href="index.php" class="btn btn-primary" style="margin-top: 25px; display: inline-block; background-color: var(--white); color: var(--black);">
+            <a href="index.php" class="btn btn-primary profile-view-edit-btn">
                 Modifier mon profil
             </a>
         <?php endif; ?>
     </div>
 
     <!-- Statistiques -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
+    <div class="profile-view-stats">
 
         <!-- Total de votes -->
-        <div style="background-color: var(--white); border: 1px solid var(--light-gray); padding: 30px; border-radius: 18px; text-align: center;">
-            <div style="font-size: 3rem; font-weight: 700; color: var(--black); margin-bottom: 5px; letter-spacing: -2px;">
+        <div class="profile-view-stat-card">
+            <div class="profile-view-stat-number">
                 <?= count($votes) ?>
             </div>
-            <div style="font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;">
+            <div class="profile-view-stat-label">
                 Vote<?= count($votes) > 1 ? 's' : '' ?>
             </div>
         </div>
 
         <!-- Date d'inscription -->
-        <div style="background-color: var(--white); border: 1px solid var(--light-gray); padding: 30px; border-radius: 18px; text-align: center;">
-            <div style="font-size: 1.3rem; font-weight: 600; color: var(--black); margin-bottom: 5px;">
+        <div class="profile-view-stat-card">
+            <div class="profile-view-stat-date">
                 <?= date('d/m/Y', strtotime($user['created_at'])) ?>
             </div>
-            <div style="font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;">
+            <div class="profile-view-stat-label">
                 Inscrit le
             </div>
         </div>
 
         <!-- Badge équipe -->
-        <div style="background-color: var(--white); border: 1px solid var(--light-gray); padding: 30px; border-radius: 18px; text-align: center;">
-            <div style="font-size: 1.3rem; font-weight: 600; color: var(--black); margin-bottom: 5px;">
+        <div class="profile-view-stat-card">
+            <div class="profile-view-stat-date">
                 <?= $user['team_name'] ? 'En équipe' : 'Solo' ?>
             </div>
-            <div style="font-size: 0.85rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500;">
+            <div class="profile-view-stat-label">
                 Statut
             </div>
         </div>
     </div>
 
     <!-- Votes de l'utilisateur -->
-    <div style="background-color: var(--white); border: 1px solid var(--light-gray); padding: 40px; border-radius: 18px;">
-        <h2 style="margin-bottom: 30px; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.5px;">
+    <div class="profile-view-votes-section">
+        <h2 class="profile-view-votes-title">
             Jeux votés
         </h2>
 
         <?php if (empty($votes)): ?>
-            <div style="text-align: center; padding: 60px 20px; color: var(--gray);">
-                <p style="font-size: 1.1rem;">Aucun vote pour le moment</p>
+            <div class="profile-view-no-votes">
+                <p>Aucun vote pour le moment</p>
             </div>
         <?php else: ?>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px;">
+            <div class="profile-view-votes-grid">
                 <?php foreach ($votes as $vote): ?>
-                    <div style="background-color: var(--white); border: 1px solid var(--light-gray); border-radius: 15px; overflow: hidden; transition: var(--transition); cursor: pointer;" 
-                         onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.1)'; this.style.borderColor='var(--black)';"
-                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='var(--light-gray)';">
+                    <div class="profile-view-vote-card">
 
                         <?php if ($vote['image']): ?>
-                            <img src="../uploads/<?= htmlspecialchars($vote['image']) ?>" 
-                                 alt="<?= htmlspecialchars($vote['name']) ?>" 
-                                 style="width: 100%; height: 120px; object-fit: cover;">
+                            <img src="../uploads/<?= htmlspecialchars($vote['image']) ?>"
+                                 alt="<?= htmlspecialchars($vote['name']) ?>"
+                                 class="profile-view-vote-image">
                         <?php else: ?>
-                            <div style="width: 100%; height: 120px; background-color: var(--light-gray); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                            <div class="profile-view-vote-placeholder">
                                 🎮
                             </div>
                         <?php endif; ?>
 
-                        <div style="padding: 15px; text-align: center;">
-                            <div style="font-weight: 600; margin-bottom: 5px; font-size: 0.95rem; color: var(--dark-gray);">
+                        <div class="profile-view-vote-info">
+                            <div class="profile-view-vote-name">
                                 <?= htmlspecialchars($vote['name']) ?>
                             </div>
-                            <div style="font-size: 0.8rem; color: var(--gray);">
+                            <div class="profile-view-vote-date">
                                 <?= date('d/m/Y', strtotime($vote['created_at'])) ?>
                             </div>
                         </div>
@@ -165,7 +163,7 @@ include '../includes/header.php';
     </div>
 
     <!-- Bouton retour -->
-    <div style="text-align: center; margin: 40px 0 60px 0;">
+    <div class="profile-view-back">
         <a href="../index.php" class="btn btn-secondary">
             ← Retour à l'accueil
         </a>

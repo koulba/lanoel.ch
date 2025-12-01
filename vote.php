@@ -71,7 +71,7 @@ include 'includes/header.php';
     <p class="section-subtitle">Vous pouvez voter pour maximum 8 jeux</p>
 
     <?php if ($votingClosed): ?>
-        <div class="alert alert-error" style="text-align: center; font-size: 1.2rem;">
+        <div class="alert alert-error voting-closed">
             ⏰ La période de vote est terminée ! Il n'est plus possible de voter.
         </div>
     <?php else: ?>
@@ -97,7 +97,7 @@ include 'includes/header.php';
                     <?php if ($game['image']): ?>
                         <img src="uploads/<?= htmlspecialchars($game['image']) ?>" alt="<?= htmlspecialchars($game['name']) ?>">
                     <?php else: ?>
-                        <div style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        <div class="game-placeholder">
                             🎮
                         </div>
                     <?php endif; ?>
@@ -105,7 +105,7 @@ include 'includes/header.php';
                     <div class="game-card-content">
                         <h3><?= htmlspecialchars($game['name']) ?></h3>
                         <div class="vote-count">
-                            <span style="font-size: 1.5rem;">👍</span>
+                            <span class="vote-emoji">👍</span>
                             <strong><?= $game['vote_count'] ?></strong> vote<?= $game['vote_count'] > 1 ? 's' : '' ?>
                         </div>
                         

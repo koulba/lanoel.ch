@@ -59,11 +59,11 @@ include 'includes/header.php';
                 <input type="password" name="password" required>
             </div>
             
-            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Se connecter</button>
+            <button type="submit" class="btn btn-primary btn-full-width btn-margin-top">Se connecter</button>
         </form>
         
-        <p style="text-align: center; margin-top: 20px; color: var(--gray);">
-            Pas encore inscrit ? <a href="register.php" style="color: var(--black); font-weight: 500;">S'inscrire</a>
+        <p class="auth-link-text">
+            Pas encore inscrit ? <a href="register.php" class="auth-link">S'inscrire</a>
         </p>
     </div>
 </div>

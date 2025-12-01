@@ -96,15 +96,15 @@ include '../includes/header.php';
 
 
 
-    <div style="margin-top: 30px; text-align: center; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 15px;">
-    <p style="margin-bottom: 15px; font-size: 1.1rem;">🔗 Partage ton profil public :</p>
-    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-        <a href="view.php?id=<?= $_SESSION['user_id'] ?>" 
+    <div class="profile-share-section">
+    <p class="profile-share-text">🔗 Partage ton profil public :</p>
+    <div class="profile-share-buttons">
+        <a href="view.php?id=<?= $_SESSION['user_id'] ?>"
            class="btn btn-secondary"
            target="_blank">
             👁️ Voir mon profil public
         </a>
-        
+
     </div>
 <a href="../index.php" class="back-link">← Retour à l'accueil</a>
 </div>

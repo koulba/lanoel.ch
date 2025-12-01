@@ -223,38 +223,4 @@ include '../includes/header.php';
     </div>
 </div>
 
-<style>
-.text-success {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
-.text-danger {
-    color: #f44336;
-    font-weight: bold;
-}
-
-.btn-delete {
-    padding: 5px 10px;
-    background: #f44336;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.btn-delete:hover {
-    background: #d32f2f;
-    transform: scale(1.05);
-}
-
-small {
-    display: block;
-    margin-top: 5px;
-    color: #666;
-    font-size: 12px;
-}
-</style>
-
 <?php include '../includes/footer.php'; ?>

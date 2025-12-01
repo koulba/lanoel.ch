@@ -207,9 +207,9 @@ window.onclick = function(event) {
                     <tr>
                         <td>
                             <?php if ($game['image']): ?>
-                                <img src="../uploads/<?= htmlspecialchars($game['image']) ?>" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;">
+                                <img src="../uploads/<?= htmlspecialchars($game['image']) ?>" alt="" class="admin-game-thumbnail">
                             <?php else: ?>
-                                <div style="width: 60px; height: 60px; background: var(--light-gray); border-radius: 8px; display: flex; align-items: center; justify-content: center;">🎮</div>
+                                <div class="admin-game-thumbnail-placeholder">🎮</div>
                             <?php endif; ?>
                         </td>
                         <td><strong><?= htmlspecialchars($game['name']) ?></strong></td>

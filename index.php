@@ -76,35 +76,35 @@ include 'includes/header.php';
 
 <!-- À l'endroit où tu veux afficher la vidéo sur index.php -->
 
-<div style="display: flex; justify-content: center; margin: 40px 0;">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/rfdHv5440s8" title="YouTube video" frameborder="0" allowfullscreen style="width:100%; max-width:560px;"></iframe>
+<div class="video-container">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/rfdHv5440s8" title="YouTube video" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div class="container">
         <!-- Compte à rebours jusqu'au 27.12.2025 -->
-<div id="countdown-container" style="text-align:center; margin:50px 0;">
-    <div style="background: #000; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 800px; margin: 0 auto; border: 2px solid #333;">
+<div id="countdown-container">
+    <div class="countdown-wrapper">
         <?php if ($votingClosed): ?>
-            <div style="color: #fff; font-size: 2.5rem; font-weight: bold; margin-bottom: 20px;">
+            <div class="countdown-title">
                 🎄 Les votes sont terminés ! 🎄
             </div>
-            <div style="font-size: 1.3rem; color: #f0f0f0; margin-bottom: 10px;">
+            <div class="countdown-subtitle">
                 Découvrez ci-dessous le classement final des 8 jeux sélectionnés
             </div>
         <?php endif; ?>
 
-        <div style="color: #fff; font-size: 1.8rem; margin-bottom: 15px;">
-            LANoël 2025
+        <div class="countdown-event-title">
+            🎮 LANoël 2025 🎮
         </div>
-        <div style="color: #f0f0f0; font-size: 1.2rem; margin-bottom: 25px;">
+        <div class="countdown-event-dates">
             📅 Du 27 au 28 décembre 2025
         </div>
 
-        <div style="color: #ffd700; font-size: 1.3rem; margin-bottom: 10px; font-weight: bold;">
+        <div class="countdown-label-text">
             Début du tournoi dans :
         </div>
 
-        <div id="countdown-timer" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <div id="countdown-timer">
             <div class="countdown-block">
                 <div class="countdown-number" id="days">0</div>
                 <div class="countdown-label">Jours</div>
@@ -123,7 +123,7 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <div style="color: #f0f0f0; font-size: 1rem; margin-top: 20px; opacity: 0.9;">
+        <div class="countdown-footer">
             Rendez-vous le 27 décembre à 10h00 ! 🎅
         </div>
     </div>
@@ -138,7 +138,7 @@ function updateLanoelCountdown() {
 
     if (diff <= 0) {
         document.getElementById('countdown-timer').innerHTML =
-            '<div style="font-size: 2.5rem; color: #ffd700; font-weight: bold;">🎉 C\'EST PARTI ! 🎉</div>';
+            '<div class="countdown-finished">🎉 C\'EST PARTI ! 🎉</div>';
         return;
     }
 
@@ -157,54 +157,7 @@ window.lanoelCountdownInterval = setInterval(updateLanoelCountdown, 1000);
 updateLanoelCountdown();
 </script>
 
-<style>
-.countdown-block {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    min-width: 100px;
-    transition: all 0.3s ease;
-}
-
-.countdown-block:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.countdown-number {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ffd700;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    margin-bottom: 5px;
-}
-
-.countdown-label {
-    font-size: 1rem;
-    color: #f0f0f0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-@media (max-width: 768px) {
-    .countdown-number {
-        font-size: 2rem;
-    }
-
-    .countdown-block {
-        min-width: 70px;
-        padding: 15px;
-    }
-
-    #countdown-container > div {
-        padding: 30px 20px !important;
-    }
-}
-</style>
-
-    <h2 class="section-title" style="margin-top: 60px;">Classement Général</h2>
+    <h2 class="section-title">Classement Général</h2>
     <p class="section-subtitle">Les meilleures équipes du tournoi</p>
 
     <?php if (empty($teams)): ?>
@@ -213,14 +166,14 @@ updateLanoelCountdown();
        <div class="teams-grid">
     <?php foreach ($teams as $index => $team): ?>
         <div class="team-card">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 2rem; opacity: 0.3;">#<?= $index + 1 ?></span>
+            <div class="team-card-header">
+                <span class="team-ranking-number">#<?= $index + 1 ?></span>
                 <?php if ($index === 0): ?>
-                    <span style="font-size: 2rem;">🥇</span>
+                    <span class="team-medal">🥇</span>
                 <?php elseif ($index === 1): ?>
-                    <span style="font-size: 2rem;">🥈</span>
+                    <span class="team-medal">🥈</span>
                 <?php elseif ($index === 2): ?>
-                    <span style="font-size: 2rem;">🥉</span>
+                    <span class="team-medal">🥉</span>
                 <?php endif; ?>
             </div>
 
@@ -231,17 +184,11 @@ updateLanoelCountdown();
             <div class="team-players">
                 <?php if ($team['player1_name'] && $team['player2_name']): ?>
                     👥
-                    <a href="profile/view.php?id=<?= $team['player1_id'] ?>"
-                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
-                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
-                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
+                    <a href="profile/view.php?id=<?= $team['player1_id'] ?>" class="team-player-link">
                         <?= htmlspecialchars($team['player1_name']) ?>
                     </a>
                     &
-                    <a href="profile/view.php?id=<?= $team['player2_id'] ?>"
-                       style="color: #667eea; text-decoration: none; font-weight: 600; transition: all 0.3s;"
-                       onmouseover="this.style.color='#764ba2'; this.style.textDecoration='underline';"
-                       onmouseout="this.style.color='#667eea'; this.style.textDecoration='none';">
+                    <a href="profile/view.php?id=<?= $team['player2_id'] ?>" class="team-player-link">
                         <?= htmlspecialchars($team['player2_name']) ?>
                     </a>
                 <?php else: ?>
@@ -254,7 +201,7 @@ updateLanoelCountdown();
     <?php endif; ?>
 
     <!-- Update -->
-    <h2 class="section-title" style="margin-top: 60px;">
+    <h2 class="section-title section-title-spacing">
         <?php if ($votingClosed): ?>
             Top 8  des jeux votés
         <?php else: ?>
@@ -265,7 +212,7 @@ updateLanoelCountdown();
         <?php if ($votingClosed): ?>
             Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2025
             <?php if (count($topGames) > 8): ?>
-                <br><span style="color: #e74c3c; font-weight: bold;">⚠️ <?= count($topGames) ?> Jeux séléctionés pour 8 places !</span>
+                <br><span class="games-warning">⚠️ <?= count($topGames) ?> Jeux séléctionés pour 8 places !</span>
             <?php endif; ?>
         <?php else: ?>
             Les jeux préférés de la communauté des lutins 🎅🏻<br>En cas d'égalité entre 1 ou plusieurs jeux, ils seront tirés au sort en même temps que les équipes
@@ -277,9 +224,9 @@ updateLanoelCountdown();
     <?php else: ?>
         <div class="games-grid">
             <?php foreach ($topGames as $index => $game): ?>
-                <div class="game-card" <?php if ($votingClosed): ?>style="border: 3px solid #ffd700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);"<?php endif; ?>>
+                <div class="game-card <?php if ($votingClosed): ?>selected<?php endif; ?>">
                     <?php if ($votingClosed): ?>
-                        <div style="position: absolute; top: 10px; left: 10px; background: #ffd700; color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 1.1rem; z-index: 10;">
+                        <div class="game-selected-badge">
                             #<?= $index + 1 ?>
                         </div>
                     <?php endif; ?>
@@ -287,7 +234,7 @@ updateLanoelCountdown();
                     <?php if ($game['image']): ?>
                         <img src="uploads/<?= htmlspecialchars($game['image']) ?>" alt="<?= htmlspecialchars($game['name']) ?>">
                     <?php else: ?>
-                        <div style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+                        <div class="game-placeholder">
                             🎮
                         </div>
                     <?php endif; ?>
@@ -295,11 +242,11 @@ updateLanoelCountdown();
                     <div class="game-card-content">
                         <h3><?= htmlspecialchars($game['name']) ?></h3>
                         <div class="vote-count">
-                            <span style="font-size: 1.5rem;">👍</span>
+                            <span class="game-vote-emoji">👍</span>
                             <strong><?= $game['vote_count'] ?></strong> vote<?= $game['vote_count'] > 1 ? 's' : '' ?>
                         </div>
                         <?php if ($votingClosed): ?>
-                            <div style="margin-top: 10px; padding: 8px; background: #d4edda; color: #155724; border-radius: 5px; font-weight: bold;">
+                            <div class="game-selected-status">
                                 ✅ Sélectionné
                             </div>
                         <?php endif; ?>
@@ -309,7 +256,7 @@ updateLanoelCountdown();
         </div>
     <?php endif; ?>
     <!-- SECTION LISTE DES PARTICIPANTS -->
-    <h2 class="section-title" style="margin-top: 60px;">Participants au tournoi</h2>
+    <h2 class="section-title section-title-spacing">Participants au tournoi</h2>
     <p class="section-subtitle">Découvrez tous les lutins inscrits</p>
 
      <?php

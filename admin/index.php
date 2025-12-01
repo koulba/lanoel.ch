@@ -29,31 +29,31 @@ include '../includes/header.php';
     
     <div class="teams-grid">
         <div class="team-card">
-            <div style="font-size: 3rem; margin-bottom: 10px;">👥</div>
+            <div class="admin-stat-icon">👥</div>
             <div class="team-name">Utilisateurs</div>
             <div class="team-points"><?= $totalUsers ?></div>
         </div>
-        
+
         <div class="team-card">
-            <div style="font-size: 3rem; margin-bottom: 10px;">🎮</div>
+            <div class="admin-stat-icon">🎮</div>
             <div class="team-name">Jeux</div>
             <div class="team-points"><?= $totalGames ?></div>
         </div>
-        
+
         <div class="team-card">
-            <div style="font-size: 3rem; margin-bottom: 10px;">🏆</div>
+            <div class="admin-stat-icon">🏆</div>
             <div class="team-name">Équipes</div>
             <div class="team-points"><?= $totalTeams ?></div>
         </div>
-        
+
         <div class="team-card">
-            <div style="font-size: 3rem; margin-bottom: 10px;">🗳️</div>
+            <div class="admin-stat-icon">🗳️</div>
             <div class="team-name">Votes</div>
             <div class="team-points"><?= $totalVotes ?></div>
         </div>
     </div>
     
-    <div style="margin-top: 50px; display: flex; gap: 20px; flex-wrap: wrap;">
+    <div class="admin-actions-grid">
         <a href="games.php" class="btn btn-primary">Gérer les jeux</a>
         <a href="teams.php" class="btn btn-primary">Gérer les équipes</a>
         <a href="points.php" class="btn btn-primary">Gérer les points</a>

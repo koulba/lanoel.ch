@@ -52,7 +52,7 @@ include 'includes/header.php';
         
         <?php if (isset($success)): ?>
             <div class="alert alert-success"><?= $success ?></div>
-            <a href="login.php" class="btn btn-primary" style="width: 100%;">Se connecter</a>
+            <a href="login.php" class="btn btn-primary btn-full-width">Se connecter</a>
         <?php else: ?>
             <form method="POST">
                 <div class="form-group">
@@ -70,11 +70,11 @@ include 'includes/header.php';
                     <input type="password" name="confirm_password" required>
                 </div>
                 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">S'inscrire</button>
+                <button type="submit" class="btn btn-primary btn-full-width btn-margin-top">S'inscrire</button>
             </form>
             
-            <p style="text-align: center; margin-top: 20px; color: var(--gray);">
-                Déjà inscrit ? <a href="login.php" style="color: var(--black); font-weight: 500;">Se connecter</a>
+            <p class="auth-link-text">
+                Déjà inscrit ? <a href="login.php" class="auth-link">Se connecter</a>
             </p>
         <?php endif; ?>
     </div>
