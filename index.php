@@ -133,29 +133,64 @@ include 'includes/header.php';
 </div>
     <?php endif; ?>
 
-        <!-- Compte à rebours jusqu'au 27/11/2025 -->
-<div id="countdown" style="text-align:center; margin:40px 0; font-size:2rem; font-weight:bold;">
-    <?php if ($votingClosed): ?>
-        <div style="color: #e74c3c;">Les votes sont terminés !</div>
-        <div style="font-size: 1.2rem; margin-top: 10px; color: #666;">
-            Découvrez ci-dessous le classement final des 8 jeux les plus votés
+        <!-- Compte à rebours jusqu'au 27.12.2025 -->
+<div id="countdown-container" style="text-align:center; margin:50px 0;">
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-width: 800px; margin: 0 auto;">
+        <?php if ($votingClosed): ?>
+            <div style="color: #fff; font-size: 2.5rem; font-weight: bold; margin-bottom: 20px;">
+                🎄 Les votes sont terminés ! 🎄
+            </div>
+            <div style="font-size: 1.3rem; color: #f0f0f0; margin-bottom: 10px;">
+                Découvrez ci-dessous le classement final des 8 jeux sélectionnés
+            </div>
+        <?php endif; ?>
+
+        <div style="color: #fff; font-size: 1.8rem; margin-bottom: 15px;">
+            🎮 La Lanoel 2025 🎮
         </div>
-    <?php else: ?>
-        Fin des votes 27.11 : <span id="timer"></span>
-    <?php endif; ?>
+        <div style="color: #f0f0f0; font-size: 1.2rem; margin-bottom: 25px;">
+            📅 Du 27 au 28 décembre 2025
+        </div>
+
+        <div style="color: #ffd700; font-size: 1.3rem; margin-bottom: 10px; font-weight: bold;">
+            Début du tournoi dans :
+        </div>
+
+        <div id="countdown-timer" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <div class="countdown-block">
+                <div class="countdown-number" id="days">0</div>
+                <div class="countdown-label">Jours</div>
+            </div>
+            <div class="countdown-block">
+                <div class="countdown-number" id="hours">0</div>
+                <div class="countdown-label">Heures</div>
+            </div>
+            <div class="countdown-block">
+                <div class="countdown-number" id="minutes">0</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-block">
+                <div class="countdown-number" id="seconds">0</div>
+                <div class="countdown-label">Secondes</div>
+            </div>
+        </div>
+
+        <div style="color: #f0f0f0; font-size: 1rem; margin-top: 20px; opacity: 0.9;">
+            Rendez-vous le 27 décembre à 10h00 ! 🎅
+        </div>
+    </div>
 </div>
 
-<?php if (!$votingClosed): ?>
 <script>
-function updateCountdown() {
-    // Date cible : 27 novembre 2025 à 23:59:59
-    var endDate = new Date("2025-11-27T23:59:59");
+function updateLanoelCountdown() {
+    // Date cible : 27 décembre 2025 à 10:00:00
+    var eventDate = new Date("2025-12-27T10:00:00");
     var now = new Date();
-    var diff = endDate - now;
+    var diff = eventDate - now;
 
     if (diff <= 0) {
-        // Recharger la page pour afficher le classement final
-        location.reload();
+        document.getElementById('countdown-timer').innerHTML =
+            '<div style="font-size: 2.5rem; color: #ffd700; font-weight: bold;">🎉 C\'EST PARTI ! 🎉</div>';
         return;
     }
 
@@ -164,20 +199,61 @@ function updateCountdown() {
     var minutes = Math.floor((diff / (1000 * 60)) % 60);
     var seconds = Math.floor((diff / 1000) % 60);
 
-    document.getElementById('timer').innerHTML =
-        days + "j " + hours + "h " + minutes + "m " + seconds + "s";
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
 }
 
-window.countdownInterval = setInterval(updateCountdown, 1000);
-updateCountdown();
+window.lanoelCountdownInterval = setInterval(updateLanoelCountdown, 1000);
+updateLanoelCountdown();
 </script>
-<?php endif; ?>
 
 <style>
-#timer {
-    color: red;
+.countdown-block {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    min-width: 100px;
+    transition: all 0.3s ease;
 }
 
+.countdown-block:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.countdown-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 5px;
+}
+
+.countdown-label {
+    font-size: 1rem;
+    color: #f0f0f0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 768px) {
+    .countdown-number {
+        font-size: 2rem;
+    }
+
+    .countdown-block {
+        min-width: 70px;
+        padding: 15px;
+    }
+
+    #countdown-container > div {
+        padding: 30px 20px !important;
+    }
+}
 </style>
     <!-- Update -->
     <h2 class="section-title" style="margin-top: 60px;">
