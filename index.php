@@ -32,38 +32,34 @@ $allGames = $stmt->fetchAll();
 
 // Si les votes sont fermés, on prend les 8 meilleurs avec égalités
 if ($votingClosed && !empty($allGames)) {
-    $topGames = [];
-    $minVotes = null;
+    // Prendre les 8 premiers jeux
+    $topGames = array_slice($allGames, 0, 8);
 
-    foreach ($allGames as $game) {
-        // Prendre les 8 premiers
-        if (count($topGames) < 8) {
-            $topGames[] = $game;
-            $minVotes = $game['vote_count'];
+    if (count($allGames) > 8) {
+        // Récupérer le nombre de votes du 8ème jeu
+        $eighthGameVotes = $topGames[7]['vote_count'];
+
+        // Vérifier si Mario Kart est à la 8ème position (ou parmi les jeux ayant le même nombre de votes que le 8ème)
+        $marioKartIsEighth = false;
+        foreach ($topGames as $game) {
+            if ($game['vote_count'] == $eighthGameVotes && stripos($game['name'], 'Mario Kart') !== false) {
+                $marioKartIsEighth = true;
+                break;
+            }
         }
-        // Gérer les jeux à égalité avec le 8ème
-        elseif ($game['vote_count'] == $minVotes) {
-            // Vérifier si Mario Kart est parmi les jeux ayant exactement $minVotes votes
-            $marioKartAtMinVotes = false;
-            foreach ($topGames as $topGame) {
-                if ($topGame['vote_count'] == $minVotes && stripos($topGame['name'], 'Mario Kart') !== false) {
-                    $marioKartAtMinVotes = true;
+
+        // Si Mario Kart n'est PAS le 8ème, on ajoute les jeux à égalité
+        if (!$marioKartIsEighth) {
+            // Ajouter tous les jeux suivants qui ont le même nombre de votes que le 8ème
+            for ($i = 8; $i < count($allGames); $i++) {
+                if ($allGames[$i]['vote_count'] == $eighthGameVotes) {
+                    $topGames[] = $allGames[$i];
+                } else {
                     break;
                 }
             }
-
-            // Si Mario Kart a exactement $minVotes votes (donc c'est le 8ème), on ignore les autres jeux à égalité
-            if ($marioKartAtMinVotes) {
-                // Ne rien ajouter - on garde uniquement Mario Kart qui est déjà dans le top 8
-            } else {
-                // Si Mario Kart n'est pas à ce niveau de votes, on garde tous les jeux à égalité
-                $topGames[] = $game;
-            }
         }
-        // Arrêter si on a dépassé les égalités
-        else {
-            break;
-        }
+        // Si Mario Kart EST le 8ème, on ne garde que lui (on ne fait rien, les 8 premiers sont déjà dans $topGames)
     }
 } else {
     // Mode normal : afficher seulement 8 jeux
