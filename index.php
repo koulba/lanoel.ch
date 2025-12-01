@@ -90,7 +90,7 @@ include 'includes/header.php';
         <?php endif; ?>
 
         <div class="countdown-event-title">
-            🎮 LANoël 2025 🎮
+            LANoël 2025
         </div>
         <div class="countdown-event-dates">
             📅 Du 27 au 28 décembre 2025
