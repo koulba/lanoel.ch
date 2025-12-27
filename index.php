@@ -73,7 +73,7 @@ include 'includes/header.php';
 <!-- À l'endroit où tu veux afficher la vidéo sur index.php -->
 
 <div class="video-container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/rfdHv5440s8" title="YouTube video" frameborder="0" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.twitch.tv/vexatwitch" title="YouTube video" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <div class="container">
