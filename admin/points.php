@@ -10,12 +10,20 @@ $error = '';
 
 // Ajouter des points
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_points'])) {
-    $teamId = $_POST['team_id'];
-    $gameId = $_POST['game_id'] ?? null;
     $scoringMode = $_POST['scoring_mode'] ?? 'manual';
+
+    // Récupérer les bonnes valeurs selon le mode
+    if ($scoringMode === 'preset') {
+        $teamId = $_POST['team_id'] ?? null;
+        $gameId = $_POST['game_id'] ?? null;
+    } else {
+        $teamId = $_POST['manual_team_id'] ?? null;
+        $gameId = $_POST['manual_game_id'] ?? null;
+    }
+
     $position = isset($_POST['position']) ? intval($_POST['position']) : null;
 
-    if ($scoringMode === 'preset' && $position && $gameId) {
+    if ($scoringMode === 'preset' && $position && $gameId && $teamId) {
         // Mode barème : récupérer les points selon la position
         $stmt = $pdo->prepare("
             SELECT scoring_mode FROM games WHERE id = ?
@@ -63,9 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_points'])) {
 
             $success = "Points ajoutés avec succès ! (+$pointsToAdd pts)";
         }
-    } else {
+    } elseif ($scoringMode === 'manual') {
         // Mode manuel
-        $points = intval($_POST['points']);
+        $points = intval($_POST['manual_points'] ?? 0);
         $reason = $_POST['reason'] ?? '';
 
         if ($teamId && $points != 0) {
@@ -78,6 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_points'])) {
             $stmt->execute([$teamId, $gameId, $points, $reason]);
 
             $success = "Points ajoutés avec succès !";
+        } else {
+            $error = "Veuillez remplir tous les champs obligatoires.";
         }
     }
 }
@@ -259,7 +269,7 @@ include '../includes/header.php';
             <div id="manualMode" style="display: none;">
                 <div class="form-group">
                     <label>Équipe *</label>
-                    <select name="team_id" required>
+                    <select name="manual_team_id" id="manualTeamId">
                         <option value="">Sélectionner une équipe</option>
                         <?php foreach ($teams as $team): ?>
                             <option value="<?= $team['id'] ?>">
@@ -271,7 +281,7 @@ include '../includes/header.php';
 
                 <div class="form-group">
                     <label>Jeu (optionnel)</label>
-                    <select name="game_id">
+                    <select name="manual_game_id" id="manualGameId">
                         <option value="">Aucun jeu spécifique</option>
                         <?php foreach ($games as $game): ?>
                             <option value="<?= $game['id'] ?>">
@@ -283,7 +293,7 @@ include '../includes/header.php';
 
                 <div class="form-group">
                     <label>Points * (utilisez un nombre négatif pour retirer)</label>
-                    <input type="number" name="points" placeholder="Ex: 10 ou -5">
+                    <input type="number" name="manual_points" id="manualPoints" placeholder="Ex: 10 ou -5">
                     <small>Entrez un nombre positif pour ajouter, négatif pour retirer</small>
                 </div>
 
@@ -421,6 +431,34 @@ include '../includes/header.php';
             document.getElementById('teamPoints').textContent = points;
         }
     }
+
+    // Validation du formulaire avant soumission
+    document.getElementById('pointsForm').addEventListener('submit', function(e) {
+        const scoringMode = document.getElementById('scoringMode').value;
+
+        if (scoringMode === 'preset') {
+            // Mode barème : vérifier les champs requis
+            const gameId = document.getElementById('gameSelect').value;
+            const teamId = document.getElementById('teamSelect').value;
+            const position = document.getElementById('positionSelect').value;
+
+            if (!gameId || !teamId || !position) {
+                e.preventDefault();
+                alert('Veuillez remplir tous les champs obligatoires (Jeu, Équipe, Position).');
+                return false;
+            }
+        } else {
+            // Mode manuel : vérifier les champs requis
+            const teamId = document.getElementById('manualTeamId').value;
+            const points = document.getElementById('manualPoints').value;
+
+            if (!teamId || !points || points == '0') {
+                e.preventDefault();
+                alert('Veuillez sélectionner une équipe et entrer un nombre de points (différent de 0).');
+                return false;
+            }
+        }
+    });
     </script>
 
     <!-- Classement actuel -->
