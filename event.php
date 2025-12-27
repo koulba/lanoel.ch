@@ -404,10 +404,21 @@ include 'includes/header.php';
 </div>
 
 <script>
-// Auto-refresh du classement toutes les 30 secondes
-setInterval(function() {
-    location.reload();
-}, 30000);
+// Auto-refresh du classement toutes les 30 secondes (sans recharger la page entière)
+function updateRanking() {
+    fetch('event_ranking.php')
+        .then(response => response.text())
+        .then(html => {
+            const rankingContainer = document.querySelector('.ranking-list');
+            if (rankingContainer) {
+                rankingContainer.innerHTML = html;
+            }
+        })
+        .catch(error => console.error('Erreur lors du rafraîchissement:', error));
+}
+
+// Rafraîchir toutes les 30 secondes
+setInterval(updateRanking, 30000);
 </script>
 
 <?php include 'includes/footer.php'; ?>
