@@ -243,7 +243,7 @@ include 'includes/header.php';
 
 <div class="event-container">
     <div class="event-header">
-        <h1>🎮 Event Gaming en Direct</h1>
+        <h1>LANOEL 2025</h1>
         <p>Suivez l'événement en temps réel avec le stream, les règles et le classement</p>
     </div>
 
