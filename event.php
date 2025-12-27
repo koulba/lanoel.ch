@@ -289,16 +289,19 @@ include 'includes/header.php';
             <tbody>
                 <?php
                 $schedule = [
-                    ['game' => 'BAPBAP', 'start' => '10h00', 'end' => '11h00'],
-                    ['game' => 'GeoGuessr', 'start' => '11h00', 'end' => '12h00'],
-                    ['game' => 'BIPED 2', 'start' => '13h00', 'end' => '19h00'],
-                    ['game' => "Gentlemen's Dispute", 'start' => '14h00', 'end' => '15h30'],
-                    ['game' => 'Codenames', 'start' => '15h30', 'end' => '17h30'],
-                    ['game' => 'Mage Arena', 'start' => '17h30', 'end' => '19h00'],
-                    ['game' => 'Mario Kart', 'start' => '19h00', 'end' => '20h00'],
-                    ['game' => 'Fall Guys', 'start' => '21h00', 'end' => '22h30'],
-                    ['game' => 'Trackmania', 'start' => '22h30', 'end' => '00h00'],
-                    ['game' => 'Skribbl.io', 'start' => '00h00', 'end' => '02h00'],
+                    // Jour 1 - 27.12.2025
+                    ['game' => "Gentlemen's Dispute", 'start' => '14h00', 'end' => '15h30', 'day' => 1],
+                    ['game' => 'Codenames', 'start' => '15h30', 'end' => '17h30', 'day' => 1],
+                    ['game' => 'Mage Arena', 'start' => '17h30', 'end' => '19h00', 'day' => 1],
+                    ['game' => 'Mario Kart', 'start' => '19h00', 'end' => '20h00', 'day' => 1],
+                    ['game' => 'Fall Guys', 'start' => '21h00', 'end' => '22h30', 'day' => 1],
+                    ['game' => 'Trackmania', 'start' => '22h30', 'end' => '00h00', 'day' => 1],
+                    ['game' => 'Skribbl.io', 'start' => '00h00', 'end' => '02h00', 'day' => 2],
+
+                    // Jour 2 - 28.12.2025
+                    ['game' => 'BAPBAP', 'start' => '10h00', 'end' => '11h00', 'day' => 2],
+                    ['game' => 'GeoGuessr', 'start' => '11h00', 'end' => '12h00', 'day' => 2],
+                    ['game' => 'BIPED 2', 'start' => '13h00', 'end' => '19h00', 'day' => 2],
                 ];
 
                 // Fonction pour calculer la durée
@@ -321,9 +324,27 @@ include 'includes/header.php';
                 }
 
                 // Fonction pour vérifier si c'est le jeu en cours
-                function isCurrentGame($start, $end) {
+                function isCurrentGame($start, $end, $day) {
                     $now = new DateTime();
-                    $current_time = $now->format('H:i');
+
+                    // Date de début de l'événement (27.12.2025)
+                    $eventStartDate = new DateTime('2025-12-27');
+
+                    // Calculer le jour actuel par rapport au début de l'événement
+                    $currentDay = 1;
+                    if ($now->format('Y-m-d') === '2025-12-27') {
+                        $currentDay = 1;
+                    } elseif ($now->format('Y-m-d') === '2025-12-28') {
+                        $currentDay = 2;
+                    } else {
+                        // Si on n'est pas dans les dates de l'événement, rien n'est en cours
+                        return false;
+                    }
+
+                    // Si ce n'est pas le bon jour, ce n'est pas le jeu en cours
+                    if ($day !== $currentDay) {
+                        return false;
+                    }
 
                     // Convertir en minutes
                     $current_minutes = intval($now->format('H')) * 60 + intval($now->format('i'));
@@ -331,7 +352,7 @@ include 'includes/header.php';
                     $end_minutes = intval(substr($end, 0, 2)) * 60 + intval(substr($end, 3, 2));
 
                     if ($end_minutes < $start_minutes) {
-                        // Le jeu se termine le lendemain
+                        // Le jeu se termine le lendemain (ex: 22h30 -> 00h00)
                         return $current_minutes >= $start_minutes || $current_minutes < $end_minutes;
                     }
 
@@ -340,10 +361,11 @@ include 'includes/header.php';
 
                 foreach ($schedule as $item):
                     $duration = calculateDuration($item['start'], $item['end']);
-                    $isCurrent = isCurrentGame($item['start'], $item['end']);
+                    $isCurrent = isCurrentGame($item['start'], $item['end'], $item['day']);
+                    $dayLabel = $item['day'] === 2 ? ' <span style="color: var(--primary); font-size: 0.8em;">(Jour 2)</span>' : '';
                 ?>
                     <tr class="<?= $isCurrent ? 'current-game' : '' ?>">
-                        <td class="game-name"><?= htmlspecialchars($item['game']) ?></td>
+                        <td class="game-name"><?= htmlspecialchars($item['game']) ?><?= $dayLabel ?></td>
                         <td class="time-slot"><?= $item['start'] ?></td>
                         <td class="time-slot"><?= $item['end'] ?></td>
                         <td class="time-slot"><?= $duration ?></td>
