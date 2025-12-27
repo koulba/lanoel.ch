@@ -341,18 +341,33 @@ include '../includes/header.php';
         const manualTab = document.getElementById('manualTab');
         const scoringMode = document.getElementById('scoringMode');
 
+        // Champs du mode barème
+        const gameSelect = document.getElementById('gameSelect');
+        const teamSelect = document.getElementById('teamSelect');
+        const positionSelect = document.getElementById('positionSelect');
+
         if (mode === 'preset') {
             presetMode.style.display = 'block';
             manualMode.style.display = 'none';
             presetTab.classList.add('active');
             manualTab.classList.remove('active');
             scoringMode.value = 'preset';
+
+            // Activer la validation pour le mode barème
+            gameSelect.setAttribute('required', 'required');
+            teamSelect.setAttribute('required', 'required');
+            positionSelect.setAttribute('required', 'required');
         } else {
             presetMode.style.display = 'none';
             manualMode.style.display = 'block';
             presetTab.classList.remove('active');
             manualTab.classList.add('active');
             scoringMode.value = 'manual';
+
+            // Désactiver la validation pour le mode barème
+            gameSelect.removeAttribute('required');
+            teamSelect.removeAttribute('required');
+            positionSelect.removeAttribute('required');
         }
     }
 
