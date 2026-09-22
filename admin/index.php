@@ -58,6 +58,7 @@ include '../includes/header.php';
         <a href="teams.php" class="btn btn-primary">Gérer les équipes</a>
         <a href="points.php" class="btn btn-primary">Gérer les points</a>
         <a href="roulette.php" class="btn btn-primary">🎰 Roulette - Tirage d'équipes</a>
+        <a href="archive_palmares.php" class="btn btn-primary">🏅 Archiver le palmarès</a>
     </div>
 </div>
 

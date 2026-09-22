@@ -12,6 +12,21 @@ $stmt = $pdo->prepare("SELECT username, avatar FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch();
 
+// Récupérer les médailles du palmarès (podium des éditions passées)
+$trophies = [];
+try {
+    $stmt = $pdo->prepare("
+        SELECT year, position, team_name
+        FROM palmares
+        WHERE (player1_id = ? OR player2_id = ?) AND position <= 3
+        ORDER BY year DESC, position ASC
+    ");
+    $stmt->execute([$user_id, $user_id]);
+    $trophies = $stmt->fetchAll();
+} catch (PDOException $e) {
+    // La table palmarès n'existe pas encore
+}
+
 // Gérer l'upload d'image
 $message = '';
 $error = '';
@@ -70,6 +85,24 @@ include '../includes/header.php';
     <div class="avatar-section">
         <img src="<?= $avatar_url ?>" alt="Avatar" class="avatar-preview" id="avatarPreview">
         <div class="username-display">👤 <?= htmlspecialchars($user['username']) ?></div>
+
+        <!-- Médailles du palmarès -->
+        <?php if (!empty($trophies)): ?>
+            <div class="profile-trophies">
+                <?php
+                $medals = ['🥇', '🥈', '🥉'];
+                $labels = ['Vainqueur', '2ème place', '3ème place'];
+                $classes = ['first', 'second', 'third'];
+                foreach ($trophies as $trophy):
+                    $pos = (int)$trophy['position'];
+                ?>
+                    <span class="trophy-badge <?= $classes[$pos - 1] ?>" title="<?= htmlspecialchars($trophy['team_name']) ?>">
+                        <span class="trophy-medal"><?= $medals[$pos - 1] ?></span>
+                        <?= $labels[$pos - 1] ?> LANoël <?= (int)$trophy['year'] ?>
+                    </span>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <?php if ($message): ?>
