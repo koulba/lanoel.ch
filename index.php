@@ -97,10 +97,10 @@ include 'includes/header.php';
         <?php endif; ?>
 
         <div class="countdown-event-title">
-            LANoël 2025
+            LANoël 2026
         </div>
         <div class="countdown-event-dates">
-            📅 Du 27 au 28 décembre 2025
+            📅 Du 27 au 28 décembre 2026
         </div>
 
         <div class="countdown-label-text">
@@ -134,8 +134,8 @@ include 'includes/header.php';
 
 <script>
 function updateLanoelCountdown() {
-    // Date cible : 27 décembre 2025 à 10:00:00
-    var eventDate = new Date("2025-12-27T10:00:00");
+    // Date cible : 27 décembre 2026 à 10:00:00
+    var eventDate = new Date("2026-12-27T10:00:00");
     var now = new Date();
     var diff = eventDate - now;
 
@@ -213,7 +213,7 @@ updateLanoelCountdown();
     </h2>
     <p class="section-subtitle">
         <?php if ($votingClosed): ?>
-            Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2025
+            Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2026
             <?php if (count($topGames) > 8): ?>
                 <br><span class="games-warning">⚠️ <?= count($topGames) ?> Jeux séléctionés pour 8 places !</span>
             <?php endif; ?>

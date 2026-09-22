@@ -51,7 +51,7 @@ function redirect($url) {
 
 // Fonction pour vérifier si la période de vote est terminée
 function isVotingClosed() {
-    $deadline = new DateTime('2025-11-27 23:59:59');
+    $deadline = new DateTime('2026-11-27 23:59:59');
     $now = new DateTime();
     return $now > $deadline;
 }
