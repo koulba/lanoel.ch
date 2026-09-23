@@ -183,18 +183,6 @@ $letterIndex = 0;
     updateLanoelCountdown();
     </script>
 
-    <!-- Stream Twitch -->
-    <section class="panel video-container">
-        <iframe
-            src="https://player.twitch.tv/?channel=vexatwitch&parent=<?= $_SERVER['HTTP_HOST'] ?>"
-            frameborder="0"
-            allowfullscreen="true"
-            scrolling="no"
-            height="378"
-            width="620">
-        </iframe>
-    </section>
-
     <!-- Classement -->
     <section class="panel panel-pad">
         <h2 class="section-title"><span class="grad">Classement</span> Général</h2>
