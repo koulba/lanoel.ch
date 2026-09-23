@@ -245,22 +245,22 @@ include '../includes/header.php';
 
                 <!-- Zone pour le mode individuel -->
                 <div id="individualMode" style="display: none;">
-                    <div class="alert" style="background: #e3f2fd; border-left: 4px solid #2196F3; margin: 15px 0;">
+                    <div class="alert alert-info">
                         <strong>Mode Individuel</strong>
                         <p style="margin: 5px 0;">Saisissez la position de chaque joueur. Les points seront additionnés pour l'équipe.</p>
                     </div>
 
                     <div id="playerInputs"></div>
 
-                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                        <strong>Total pour l'équipe : <span id="totalPoints" style="color: #4CAF50; font-size: 1.3em;">0</span> points</strong>
+                    <div class="points-box">
+                        <strong>Total pour l'équipe : <span id="totalPoints">0</span> points</strong>
                     </div>
                 </div>
 
                 <!-- Zone pour le mode équipe -->
                 <div id="teamMode" style="display: none;">
-                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                        <strong>Points à ajouter : <span id="teamPoints" style="color: #4CAF50; font-size: 1.3em;">0</span> points</strong>
+                    <div class="points-box">
+                        <strong>Points à ajouter : <span id="teamPoints">0</span> points</strong>
                     </div>
                 </div>
             </div>
@@ -309,26 +309,6 @@ include '../includes/header.php';
         </form>
     </div>
 
-    <style>
-    .tab-btn {
-        background: none;
-        border: none;
-        padding: 12px 24px;
-        cursor: pointer;
-        font-size: 1rem;
-        color: var(--gray);
-        border-bottom: 3px solid transparent;
-        transition: all 0.3s;
-    }
-    .tab-btn:hover {
-        color: var(--text);
-    }
-    .tab-btn.active {
-        color: var(--primary);
-        border-bottom-color: var(--primary);
-        font-weight: 600;
-    }
-    </style>
 
     <script>
     const presetData = <?= json_encode($preset) ?>;
@@ -520,7 +500,7 @@ include '../includes/header.php';
                 </tbody>
             </table>
         <?php else: ?>
-            <p style="text-align: center; color: #666;">Aucune équipe créée</p>
+            <p class="empty-state">Aucune équipe créée</p>
         <?php endif; ?>
     </div>
 
@@ -582,7 +562,7 @@ include '../includes/header.php';
                 </tbody>
             </table>
         <?php else: ?>
-            <p style="text-align: center; color: #666;">Aucun historique</p>
+            <p class="empty-state">Aucun historique</p>
         <?php endif; ?>
     </div>
 </div>

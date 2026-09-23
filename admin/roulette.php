@@ -203,7 +203,7 @@ function showWinners() {
             const display = document.getElementById('rouletteDisplay');
             display.style.background = '#ffd700';
             setTimeout(() => {
-                display.style.background = 'white';
+                display.style.background = '';
             }, 300);
 
             currentWinner++;
