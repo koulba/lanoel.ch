@@ -1,4 +1,16 @@
 <?php
+// Session partagée entre lanoel.ch et ses sous-domaines (ex. poke.lanoel.ch)
+$sessionHost = strtolower(preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? ''));
+if (preg_match('/(^|\.)lanoel\.ch$/', $sessionHost)) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '.lanoel.ch',
+        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+}
 session_start();
 
 // Charger les variables d'environnement depuis le fichier .env

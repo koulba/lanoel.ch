@@ -116,6 +116,7 @@
                     <a href="<?= $base_path ?>vote.php">Voter</a>
                     <a href="<?= $base_path ?>event.php">Event Live</a>
                     <a href="<?= $base_path ?>palmares.php">Palmarès</a>
+                    <a href="https://poke.lanoel.ch">Cartes Poké</a>
                     <a href="<?= $base_path ?>overlay_download.php">Overlay</a>
                 <?php endif; ?>
 
