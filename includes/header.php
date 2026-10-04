@@ -118,7 +118,7 @@
                     <a href="<?= $base_path ?>palmares.php">Palmarès</a>
                     <a href="<?= $base_path ?>overlay_download.php">Overlay</a>
                     <?php if ($hudVotesOpen): ?>
-                        <a href="<?= $base_path ?>add_game.php" class="btn btn-small btn-primary nav-add-game">➕ Ajouter un jeu</a>
+                        <a href="<?= $base_path ?>add_game.php" class="btn btn-small btn-primary nav-add-game">Ajouter un jeu</a>
                     <?php endif; ?>
                 <?php endif; ?>
 
