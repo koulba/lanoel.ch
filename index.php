@@ -268,7 +268,7 @@ $letterIndex = 0;
         </h2>
         <p class="section-subtitle">
             <?php if ($votingClosed): ?>
-                Les <?= count($topGames) ?> jeux sélectionnés pour la Lanoel 2026
+                Les <?= count($topGames) ?> jeux sélectionnés pour la LANoël 2026
                 <?php if (count($topGames) > 8): ?>
                     <br><span class="games-warning">⚠️ <?= count($topGames) ?> Jeux séléctionés pour 8 places !</span>
                 <?php endif; ?>

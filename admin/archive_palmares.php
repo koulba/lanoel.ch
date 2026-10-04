@@ -132,7 +132,7 @@ include '../includes/header.php';
         <form method="POST">
             <div class="form-group">
                 <label>Année de l'édition</label>
-                <input type="number" name="year" value="2025" min="2000" max="2100" required>
+                <input type="number" name="year" value="2026" min="2000" max="2100" required>
             </div>
             <div class="form-group">
                 <label style="display: flex; align-items: center; gap: 8px; font-weight: normal;">

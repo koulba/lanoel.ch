@@ -5,14 +5,14 @@ require_once 'config/database.php';
 $stmt = $pdo->query("SELECT name, points FROM teams ORDER BY points DESC");
 $teams = $stmt->fetchAll();
 
-$pageTitle = "Lanoel2025";
+$pageTitle = "LANoël 2026";
 include 'includes/header.php';
 ?>
 
 
 <div class="event-container">
     <div class="event-header">
-        <h1>LANOEL 2025</h1>
+        <h1>LANoël 2026</h1>
         <p>Suivez l'événement en temps réel avec le stream, les règles et le classement</p>
     </div>
 
@@ -34,7 +34,7 @@ include 'includes/header.php';
             <h2>📖 Règles du Jeu</h2>
             <div class="video-wrapper">
                 <iframe
-                    src="https://www.youtube.com/embed/rfdHv5440s8"
+                    src="https://www.youtube.com/embed/33hbBx1Sa_E"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen>
@@ -57,21 +57,8 @@ include 'includes/header.php';
             </thead>
             <tbody>
                 <?php
-                $schedule = [
-                    // Jour 1 - 27.12.2025
-                    ['game' => "Gentlemen's Dispute", 'start' => '14h00', 'end' => '15h30', 'day' => 1],
-                    ['game' => 'Codenames', 'start' => '15h30', 'end' => '17h30', 'day' => 1],
-                    ['game' => 'Mage Arena', 'start' => '17h30', 'end' => '19h00', 'day' => 1],
-                    ['game' => 'Mario Kart', 'start' => '19h00', 'end' => '20h00', 'day' => 1],
-                    ['game' => 'Fall Guys', 'start' => '21h00', 'end' => '22h30', 'day' => 1],
-                    ['game' => 'Trackmania', 'start' => '22h30', 'end' => '00h00', 'day' => 1],
-                    ['game' => 'Skribbl.io', 'start' => '00h00', 'end' => '02h00', 'day' => 2],
-
-                    // Jour 2 - 28.12.2025
-                    ['game' => 'BAPBAP', 'start' => '10h00', 'end' => '11h00', 'day' => 2],
-                    ['game' => 'GeoGuessr', 'start' => '11h00', 'end' => '12h00', 'day' => 2],
-                    ['game' => 'BIPED 2', 'start' => '13h00', 'end' => '19h00', 'day' => 2],
-                ];
+                // Format : ['game' => 'Nom', 'start' => '14h00', 'end' => '15h30', 'day' => 1]
+                $schedule = [];
 
                 // Fonction pour calculer la durée
                 function calculateDuration($start, $end) {
@@ -127,6 +114,12 @@ include 'includes/header.php';
 
                     return $current_minutes >= $start_minutes && $current_minutes < $end_minutes;
                 }
+
+                if (empty($schedule)): ?>
+                    <tr>
+                        <td colspan="4" style="text-align: center; color: var(--muted);">Programme à venir</td>
+                    </tr>
+                <?php endif;
 
                 foreach ($schedule as $item):
                     $duration = calculateDuration($item['start'], $item['end']);

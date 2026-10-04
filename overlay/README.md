@@ -1,6 +1,6 @@
 # 🎄 Lanoel Overlay - Guide d'installation
 
-Overlay de classement en temps réel pour le tournoi Lanoel 2025.
+Overlay de classement en temps réel pour le tournoi LANoël 2026.
 
 ## 📋 Prérequis
 

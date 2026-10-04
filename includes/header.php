@@ -61,7 +61,7 @@
         <!-- Logo -->
         <div class="hud-logo">
             <a href="<?= $base_path ?>index.php" class="header-logo-link">
-                <img src="<?= $base_path ?>images/lanoel.webp" alt="Tournoi Gaming" class="header-logo-img">
+                <img src="<?= $base_path ?>images/lanoel_logo.png" alt="LANoël 2026" class="header-logo-img">
             </a>
         </div>
 
