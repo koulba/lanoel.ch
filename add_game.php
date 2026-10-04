@@ -42,7 +42,7 @@ include 'includes/header.php';
 ?>
 
 <div class="container">
-    <h2 class="section-title">➕ Ajouter un jeu</h2>
+    <h2 class="section-title">Ajouter un jeu</h2>
     <p class="section-subtitle">Ton jeu n'est pas dans la liste ? Ajoute-le pour que tout le monde puisse voter pour lui.</p>
 
     <?php if (isset($success)): ?>
