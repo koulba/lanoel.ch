@@ -122,6 +122,9 @@ nav.hud-nav > a { padding: 8px 12px; border-radius: 10px; font-size: 14px; font-
 nav.hud-nav > a:hover, nav.hud-nav > a.active { color: var(--text); background: rgba(255,255,255,.06); }
 nav.hud-nav > a.btn { padding: 7px 14px; font-size: 13px; }
 nav.hud-nav > a.btn-primary, nav.hud-nav > a.btn-primary:hover { color: var(--accent-ink); background: var(--accent); }
+nav.hud-nav > a.nav-add-game { margin: 0 6px; box-shadow: 0 0 18px var(--accent-glow); animation: navAddGlow 2.4s ease-in-out infinite; }
+@keyframes navAddGlow { 50% { box-shadow: 0 0 32px var(--accent-glow); } }
+@media (prefers-reduced-motion: reduce) { nav.hud-nav > a.nav-add-game { animation: none; } }
 nav.hud-nav > a.btn-secondary, nav.hud-nav > a.btn-secondary:hover { color: var(--text); background: linear-gradient(180deg, #17171a, #0a0a0b); }
 
 .profile-link { display: inline-flex !important; align-items: center; gap: 8px; padding: 4px 12px 4px 4px !important; margin-left: 6px; border-radius: 999px !important; background: rgba(255,255,255,.05); border: 1px solid var(--line); transition: var(--transition); }
