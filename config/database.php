@@ -67,5 +67,37 @@ function isVotingClosed() {
     $now = new DateTime();
     return $now > $deadline;
 }
+
+// Ajoute la colonne games.added_by (jeux proposés par les joueurs) si elle n'existe pas encore
+function ensureGamesAddedBy($pdo) {
+    if (!empty($_SESSION['games_schema_v1'])) return;
+    $hasColumn = $pdo->query("SHOW COLUMNS FROM games LIKE 'added_by'")->fetch();
+    if (!$hasColumn) {
+        $pdo->exec("ALTER TABLE games ADD COLUMN added_by INT NULL");
+    }
+    $_SESSION['games_schema_v1'] = 1;
+}
+
+// Enregistre l'image d'un jeu dans uploads/ ; renvoie le nom du fichier ou lève une exception
+function uploadGameImage($file) {
+    if (empty($file['name']) || $file['error'] !== UPLOAD_ERR_OK) {
+        throw new RuntimeException("L'image est obligatoire.");
+    }
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+        throw new RuntimeException("Format d'image non accepté (JPG, PNG, GIF, WEBP).");
+    }
+    if ($file['size'] >= 5000000) {
+        throw new RuntimeException("L'image dépasse 5 Mo.");
+    }
+    if (@getimagesize($file['tmp_name']) === false) {
+        throw new RuntimeException("Le fichier envoyé n'est pas une image valide.");
+    }
+    $newFileName = uniqid() . '.' . $ext;
+    if (!move_uploaded_file($file['tmp_name'], __DIR__ . '/../uploads/' . $newFileName)) {
+        throw new RuntimeException("Impossible d'enregistrer l'image.");
+    }
+    return $newFileName;
+}
 ?>
 

@@ -78,10 +78,12 @@ if (isset($_GET['delete'])) {
 }
 
 // Récupérer tous les jeux
+ensureGamesAddedBy($pdo);
 $stmt = $pdo->query("
-    SELECT g.*, COUNT(v.id) as vote_count
+    SELECT g.*, COUNT(v.id) as vote_count, u.username as added_by_name
     FROM games g
     LEFT JOIN votes v ON g.id = v.game_id
+    LEFT JOIN users u ON g.added_by = u.id
     GROUP BY g.id
     ORDER BY vote_count DESC
 ");
@@ -124,8 +126,6 @@ include '../includes/header.php';
         <button type="submit" name="add_game" class="btn btn-primary">Ajouter</button>
     </form>
 </div>
-
-<!-- ... reste du code ... -->
 
 <!-- Modal de modification -->
 <div id="editModal" class="modal">
@@ -198,6 +198,7 @@ window.onclick = function(event) {
                 <tr>
                     <th>Image</th>
                     <th>Nom</th>
+                    <th>Ajouté par</th>
                     <th>Votes</th>
                     <th>Actions</th>
                 </tr>
@@ -213,6 +214,7 @@ window.onclick = function(event) {
                             <?php endif; ?>
                         </td>
                         <td><strong><?= htmlspecialchars($game['name']) ?></strong></td>
+                        <td><?= $game['added_by_name'] ? htmlspecialchars($game['added_by_name']) : 'Admin' ?></td>
                         <td><?= $game['vote_count'] ?> vote<?= $game['vote_count'] > 1 ? 's' : '' ?></td>
                         <td class="admin-actions">
                             <button onclick="editGame(<?= $game['id'] ?>, '<?= htmlspecialchars($game['name'], ENT_QUOTES) ?>', '<?= htmlspecialchars($game['image']) ?>')" class="btn btn-small btn-secondary">Modifier</button>
@@ -224,49 +226,5 @@ window.onclick = function(event) {
         </table>
     <?php endif; ?>
 </div>
-
-<!-- Modal de modification -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h3>Modifier le jeu</h3>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="game_id" id="edit_game_id">
-            <input type="hidden" name="current_image" id="current_image">
-            
-            <div class="form-group">
-                <label>Nom du jeu</label>
-                <input type="text" name="name" id="edit_name" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Nouvelle image (laisser vide pour conserver l'actuelle)</label>
-                <input type="file" name="image" accept="image/*">
-            </div>
-            
-            <button type="submit" name="edit_game" class="btn btn-primary">Modifier</button>
-        </form>
-    </div>
-</div>
-
-<script>
-function editGame(id, name, image) {
-    document.getElementById('edit_game_id').value = id;
-    document.getElementById('edit_name').value = name;
-    document.getElementById('current_image').value = image;
-    document.getElementById('editModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('editModal').style.display = 'none';
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('editModal');
-    if (event.target == modal) {
-        modal.style.display = 'none';
-    }
-}
-</script>
 
 <?php include '../includes/footer.php'; ?>
