@@ -210,7 +210,7 @@ include '../includes/header.php';
                     ?>
                     <tr class="participants-admin-row <?= $p['is_absent'] ? 'is-absent' : '' ?>">
                         <td>
-                            <img src="<?= $avatar_url ?>" alt="" class="avatar-mini">
+                            <img src="<?= $avatar_url ?>" alt="" class="avatar-mini" width="36" height="36" style="width:36px;height:36px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:10px;">
                             <a href="../profile/view.php?id=<?= $p['id'] ?>" style="color: inherit;"><strong><?= htmlspecialchars($p['username']) ?></strong></a>
                         </td>
                         <td>

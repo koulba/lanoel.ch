@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
-    <link rel="stylesheet" href="<?= $base_path ?>css/style.css">
+    <link rel="stylesheet" href="<?= $base_path ?>css/style.css?v=<?= @filemtime(__DIR__ . '/../css/style.css') ?: 1 ?>">
     <link rel="icon" type="image/x-icon" href="<?= $base_path ?>images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= $base_path ?>images/favicon.ico">
     <link rel="apple-touch-icon" href="<?= $base_path ?>images/favicon.ico">
