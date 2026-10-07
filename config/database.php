@@ -68,6 +68,17 @@ function isVotingClosed() {
     return $now > $deadline;
 }
 
+// Ajoute la colonne users.is_absent (participant inscrit mais absent le jour J) si elle n'existe pas encore
+function ensureUsersIsAbsent($pdo) {
+    if (!empty($_SESSION['users_schema_v1'])) return;
+    $hasColumn = $pdo->query("SHOW COLUMNS FROM users LIKE 'is_absent'")->fetch();
+    if (!$hasColumn) {
+        $pdo->exec("ALTER TABLE users ADD COLUMN is_absent TINYINT(1) NOT NULL DEFAULT 0");
+    }
+    $_SESSION['users_schema_v1'] = 1;
+}
+ensureUsersIsAbsent($pdo);
+
 // Ajoute la colonne games.added_by (jeux proposés par les joueurs) si elle n'existe pas encore
 function ensureGamesAddedBy($pdo) {
     if (!empty($_SESSION['games_schema_v1'])) return;

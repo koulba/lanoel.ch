@@ -20,7 +20,7 @@
     $hudVotesOpen = !isVotingClosed();
     $hudLutins = 0;
     try {
-        $hudLutins = (int)$pdo->query("SELECT COUNT(*) FROM users WHERE is_admin = 0")->fetchColumn();
+        $hudLutins = (int)$pdo->query("SELECT COUNT(*) FROM users WHERE is_admin = 0 AND is_absent = 0")->fetchColumn();
     } catch (PDOException $e) {
         // Pas bloquant pour l'affichage
     }
@@ -107,6 +107,7 @@
                 <?php if (isAdmin()): ?>
                     <!-- Menu Admin -->
                     <a href="<?= $base_path ?>admin/index.php">Dashboard</a>
+                    <a href="<?= $base_path ?>admin/participants.php">Participants</a>
                     <a href="<?= $base_path ?>admin/games.php">Jeux</a>
                     <a href="<?= $base_path ?>admin/teams.php">Équipes</a>
                     <a href="<?= $base_path ?>admin/points.php">Points</a>

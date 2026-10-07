@@ -82,6 +82,9 @@ include '../includes/header.php';
             <?php if ($user['is_admin']): ?>
                 <span class="profile-view-admin-badge">Admin</span>
             <?php endif; ?>
+            <?php if (!empty($user['is_absent'])): ?>
+                <span class="profile-view-absent-badge">Absent le jour J</span>
+            <?php endif; ?>
         </h1>
 
         <!-- Équipe -->

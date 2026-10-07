@@ -74,15 +74,16 @@ foreach ($topGames as $g) { $maxVotes = max($maxVotes, (int)$g['vote_count']); }
 
 // Récupérer tous les utilisateurs SAUF l'admin avec leurs infos d'équipe
 $stmt = $pdo->query("
-    SELECT u.id, u.username, u.avatar, u.is_admin, u.created_at,
+    SELECT u.id, u.username, u.avatar, u.is_admin, u.is_absent, u.created_at,
            t.name as team_name, t.points as team_points,
            (SELECT COUNT(*) FROM votes WHERE user_id = u.id) as vote_count
     FROM users u
     LEFT JOIN teams t ON (t.player1_id = u.id OR t.player2_id = u.id)
     WHERE u.is_admin = 0
-    ORDER BY u.username ASC
+    ORDER BY u.is_absent ASC, u.username ASC
 ");
 $participants = $stmt->fetchAll();
+$presentParticipants = array_filter($participants, function($p) { return !$p['is_absent']; });
 
 $pageTitle = "Accueil";
 $showLoader = true;
@@ -328,7 +329,10 @@ $letterIndex = 0;
         <?php else: ?>
             <div class="participants-grid">
                 <?php foreach ($participants as $participant): ?>
-                    <a href="profile/view.php?id=<?= $participant['id'] ?>" class="participant-card">
+                    <a href="profile/view.php?id=<?= $participant['id'] ?>" class="participant-card<?= $participant['is_absent'] ? ' is-absent' : '' ?>">
+                        <?php if ($participant['is_absent']): ?>
+                            <div class="absent-badge">Absent</div>
+                        <?php endif; ?>
                         <!-- Avatar -->
                         <div class="participant-avatar">
                             <?php
@@ -351,7 +355,11 @@ $letterIndex = 0;
                             </h3>
 
                             <!-- Équipe -->
-                            <?php if ($participant['team_name']): ?>
+                            <?php if ($participant['is_absent']): ?>
+                                <div class="participant-no-team">
+                                    Ne sera pas là le jour J
+                                </div>
+                            <?php elseif ($participant['team_name']): ?>
                                 <div class="participant-team">
                                     🏆 <?= htmlspecialchars($participant['team_name']) ?>
                                 </div>
@@ -371,7 +379,7 @@ $letterIndex = 0;
                         </div>
 
                         <!-- Badge "Mon profil" -->
-                        <?php if ($participant['id'] === $_SESSION['user_id']): ?>
+                        <?php if ($participant['id'] === $_SESSION['user_id'] && !$participant['is_absent']): ?>
                             <div class="you-badge">Mon profil</div>
                         <?php endif; ?>
                     </a>
@@ -385,7 +393,7 @@ $letterIndex = 0;
             ?>
             <div class="participants-stats">
                 <div class="stat-box">
-                    <div class="stat-number" data-count="<?= count($participants) ?>"><?= count($participants) ?></div>
+                    <div class="stat-number" data-count="<?= count($presentParticipants) ?>"><?= count($presentParticipants) ?></div>
                     <div class="stat-label">👥 Participants</div>
                 </div>
                 <div class="stat-box">

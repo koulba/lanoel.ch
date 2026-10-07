@@ -6,8 +6,11 @@ if (!isLoggedIn() || !isAdmin()) {
 }
 
 // Statistiques
-$stmt = $pdo->query("SELECT COUNT(*) as count FROM users WHERE is_admin = 0");
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM users WHERE is_admin = 0 AND is_absent = 0");
 $totalUsers = $stmt->fetch()['count'];
+
+$stmt = $pdo->query("SELECT COUNT(*) as count FROM users WHERE is_admin = 0 AND is_absent = 1");
+$totalAbsents = $stmt->fetch()['count'];
 
 $stmt = $pdo->query("SELECT COUNT(*) as count FROM games");
 $totalGames = $stmt->fetch()['count'];
@@ -30,8 +33,14 @@ include '../includes/header.php';
     <div class="teams-grid">
         <div class="team-card">
             <div class="admin-stat-icon">👥</div>
-            <div class="team-name">Utilisateurs</div>
+            <div class="team-name">Présents</div>
             <div class="team-points"><?= $totalUsers ?></div>
+        </div>
+
+        <div class="team-card">
+            <div class="admin-stat-icon">🚫</div>
+            <div class="team-name">Absents</div>
+            <div class="team-points"><?= $totalAbsents ?></div>
         </div>
 
         <div class="team-card">
@@ -54,6 +63,7 @@ include '../includes/header.php';
     </div>
     
     <div class="admin-actions-grid">
+        <a href="participants.php" class="btn btn-primary">👥 Gérer les participants</a>
         <a href="games.php" class="btn btn-primary">Gérer les jeux</a>
         <a href="teams.php" class="btn btn-primary">Gérer les équipes</a>
         <a href="points.php" class="btn btn-primary">Gérer les points</a>
